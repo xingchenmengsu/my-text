@@ -1,0 +1,248 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<conio.h>
+int main()
+{
+	system("color f1");// 0 = 黑色
+	//8 = 灰色1 = 蓝色  A = 淡绿色 3 = 湖蓝色  B = 淡浅绿色  4 = 红色   C = 淡红色  5 = 紫色 
+	//	9 = 淡蓝色 2 = 绿色    D = 淡紫色 6 = 黄色   E = 淡黄色   7 = 白色    F = 亮白色
+	int max(int x, int y);
+	int password, i, b, c, e, r;//password作为密码的输入值，i作为循环语句的控制条件,b作为if循环的主控条件
+	printf("请输入六位密码\n");//密码为123456
+	long double money, d;//c作为特殊的控制条件
+	char game;
+	game = _getch();
+	if (game == 11) {
+		system("pause"); return 0;
+	}
+	scanf_s("%d",&password);
+	if (password == 123456) {
+		printf("密码正确\n");
+	}
+	else {
+		do
+		{
+			i = 1;//i是密码循环的控制条件
+			printf("请重新输入密码\n");
+			scanf_s("%d", &password);
+			if (password == 123456) {
+				printf("密码正确\n");
+				i = 5;
+			}
+			if (password != 123456) {
+				printf("密码错误\n这是您的最后一次机会\n");
+				printf("请您输入正确的密码\n");
+				scanf_s("%d", &password);
+				if (password != 123456) {
+					return 0;
+				}
+				else
+				{
+					i=5;
+				}
+			}
+		} while (i<=3);
+	}
+	printf("请输入存款金额\n");
+	scanf_s("%lf", &money);
+	printf("如果你想继续存款请输入1\n如果你想取款请输入2\n如果你想查询余额请输入3\n如果你想停止操作并退出程序请输入4\n");
+	printf("如果你想将这些存款存入银行，我们为您推荐了以下几种存款方案\n请进入选项5进行如下操作\n\t先决条件是您成为我们的会员\n");
+	printf("一个小小的游戏。请输入6\n");
+	scanf_s("%d", &b);
+	do
+	{
+		if (b == 1) {//b作为主要选择条件
+			i=2;
+			printf("请输入存款金额\n");
+			scanf_s("%lf", &d);
+			money = money + d;
+			printf("您的存款金额为%lf", money);
+			system("pause");
+			printf("请再次选择你的操作");
+			scanf_s("%d", &b);
+			i++;
+		}
+		if (b == 2) {
+			i = 3;
+			printf("请输入取款金额\n");
+			scanf_s("%lf", &d);
+			if (d > money) {
+				printf("您的存款不足以取出这么多的金额\n");
+				continue;
+			}
+			money = money - d;
+			printf("您的最终余额为%lf\n", money);
+			printf("请再次选择你的操作\n");
+			scanf_s("%d", &b);
+			i++;
+		}
+		if (b == 3) {
+			i = 4;
+			printf("您的余额为%lf\n", money);
+			printf("请再次选择你的操作\n");
+			scanf_s("%d", &b);
+			i++;
+		}
+		if (b == 4) {
+			i = 103;
+		}
+		if (b == 5 && money>10000) {
+			printf("方案一：一次存款五年\n方案二：先存两年，两年之后连同本息在存三年\n");
+			printf("方案三：先存三年，三年之后连同本息再存两年\n方案四：存一年，到期后连同本息再存一年，重复五次\n");
+			printf("方案五：存活期存款，活期利息每一季度结算一次\n如果钟情于方案一，请输入1，同理输入2，3，4，5.\n");
+			printf("如果想知晓上面的五个方案的总和，请输入6\n");
+			scanf_s("%d", &c);
+			double b1, c1, d1, e1, f1,w0=3.00,w1,w2,w3,w4,w5;//存款利率
+			b1 = 0.015, c1 = 0.021, d1 = 0.0275, e1 = 0.03, f1 = 0.00035;
+			double *cause1=&w1, *cause2 = &w2, *cause3=&w3, *cause4=&w4, *cause5=&w5;
+			if (c == 1 || c == 6)//c作为存款利率的控制条件，w作为存款的输出控件
+			{
+				w1= money * (1 + e1);
+				printf("使用方案一所得金额为%lf\n",w1);
+				system("pause");
+			}
+			if (c == 2 || c == 6)
+			{
+				w2 = money * (1 + 2 * c1);
+				w2 = w2 * (1 + 3 * d1);
+				printf("使用方案二所得金额为%lf\n", w2);
+				system("pause");
+			}
+			if (c == 3 || c == 6)
+			{
+				w3 = money * (1 + 3 * d1);
+				w3 = w3 * (1 + 2 * c1);
+				printf("使用方案三所得金额为%lf\n", w3);
+				system("pause");
+			}
+			if (c == 4 || c == 6)
+			{
+				w4 = money * pow((1 + b1), 5);
+				printf("使用方案四所得金额为%lf\n", w4);
+				system("pause");
+			}
+			if (c == 5 || c == 6)
+			{
+				w5 = money* pow((1 + f1 / 5), 20);
+				printf("使用方案五所得金额为%lf\n", w5);
+				system("pause");
+			}
+			if (c == 6) {
+				w0 = max(max(max(max(*cause1, *cause2), *cause3), *cause4), *cause5);
+				printf("经过系统选择，我们为您推荐金额为   %lf 的方案\n",w0);
+				printf("请您到柜台办理相关业务\n");
+			}
+			printf("请再次选择你的操作\n");
+			scanf_s("%d", &b);
+			i = 50;
+		}
+		if (b == 5) {
+			e = 1;
+			do
+			{
+				printf("您不是我们的会员，请成为我们的会员在尝试这个功能\n");
+				e=e+1;
+			} while (e<6);
+			printf("请输入有效选择条件\n");
+			scanf_s("%d", &b);
+			i = 1;
+		}
+		if (b == 6) {
+			int u, p, o;
+			printf("请选择你要玩的游戏\n");
+			printf("王者荣耀（1）\n诗歌会（2）\nQQ飞车（3）\n");
+			scanf_s("%d", &r);
+			switch (r)
+			{
+			case 1: {
+					printf("王者荣耀\n");
+					printf("请输入你的出生月份\n"); scanf_s("%d", &u);
+					printf("请输入你的手机尾号\n"); scanf_s("%d", &p);
+					printf("请输入你的出生日期\n"); scanf_s("%d", &o);
+					if (u == 1)printf("蹲草丛"); if (u == 2)printf("开大"); if (u == 3)printf("猥琐");
+					if (u == 4)printf("跳着舞"); if (u == 5)printf("开着车"); if (u == 6)printf("站泉水");
+					if (u == 7)printf("躺着"); if (u == 8)printf("暗中"); if (u == 9)printf("跳起来");
+					if (u == 10)printf("打野"); if (u == 11)printf("越塔"); if (u == 12)printf("团战");
+					if (p == 1)printf("超神的"); if (p == 2)printf("巨坑的"); if (p == 3)printf("带不动的");
+					if (p == 4)printf("带妹的"); if (p == 5)printf("被秒的"); if (p == 6)printf("挂机的");
+					if (p == 7)printf("带线的"); if (p == 8)printf("五杀的"); if (p == 9)printf("抢人头的");
+					if (p == 0)printf("卖队友的");
+					if (o == 1)printf("后裔\n"); if (o == 2)printf("鲁班七号\n"); if (o == 3)printf("大乔\n"); if (o == 4)printf("小乔\n");
+					if (o == 5)printf("东皇太一\n"); if (o == 6)printf("黄忠\n"); if (o == 7)printf("芈月\n"); if (o == 8)printf("诸葛亮");
+					if (o == 9)printf("安琪拉\n"); if (o == 10)printf("不知火舞\n"); if (o == 11)printf("高渐离\n"); if (o == 12)printf("孙尚香\n");
+					if (o == 13)printf("韩信\n"); if (o == 14)printf("妲己\n"); if (o == 15)printf("李元芳\n"); if (o == 16)printf("蔡文姬\n");
+					if (o == 17)printf("亚瑟\n"); if (o == 18)printf("庄周\n"); if (o == 19)printf("甄姬\n"); if (o == 20)printf("露娜\n");
+					if (o == 21)printf("李白\n"); if (o == 22)printf("狄仁杰\n"); if (o == 23)printf("孙悟空\n"); if (o == 24)printf("程咬金\n");
+					if (o == 25)printf("宫本武藏\n"); if (o == 26)printf("王昭君\n"); if (o == 27)printf("兰陵王\n"); if (o == 28)printf("花木兰\n");
+					if (o == 29)printf("老夫子\n"); if (o == 30)printf("张飞\n"); if (o == 31)printf("凯\n");	
+			}i = 5;
+				printf("请输入有效选择条件\n");
+				scanf_s("%d", &b); break;
+			case 2: {//程序的问题已经得到解决，现在程序中只需要按照u==1的模式进行填充。暂时没有发现其他问题
+				//时间2018年4月16日，21：27.
+					printf("诗歌会\n在此次选择中，请选择你喜欢的诗人，并根据你选择的诗人做一次小小的测验。\n");
+					printf("1:李白\t2：贺知章\t3：董永\t4：苏轼\t\n选择你喜欢的诗人：\n");
+					scanf_s("%d", &u);
+					if (u == 1) {
+						printf("你选择的诗人是李白，现在做一个小小的测验\n根据下文选择正确的上文\n");
+						printf("…………，里中有三墓，累累正相似。《梁甫吟》\n");
+						printf("1:步出齐城门，遥望荡阴里。\n2：问是谁家墓，田疆古冶子。\n3：一朝被谗言，二桃杀三士\n4：谁能为此谋，国相齐晏子\n");
+						printf("请选择你的答案\n");	//选择答案
+						scanf_s("%d", &p);
+						if (p == 1)
+							printf("你选择的答案十分的正确，继续加油");
+						else printf("答案错误，请你继续努力");
+					}
+					if (u == 2) {
+						printf("你好，你选择的诗人是：贺知章，现在做一个小小的测验。\n");
+						printf(" shige ");
+						scanf_s("%d", &p);
+						if (p == 1)printf("你的答案正确。");
+						else printf("你的答案错误，请认真思考。\n");
+					}
+					if (u == 3) {
+						printf("你选择的诗人是：董永。现在进行一个小小的测验\n");
+						printf(" shige  ");
+						printf("请选择你的答案\n");
+						scanf_s("%d", &p);
+						if (p == 2)printf(" 你的答案正确。 ");
+						else  printf("你的答案错误，请认真思考。\n");
+					}
+					if (u == 4) {
+						printf("你选择的诗人是：苏轼。现在进行一个小小的测验\n");
+						printf(" shige  ");
+						printf("请选择你的答案\n");
+						scanf_s("%d", &p);
+						if (p == 2)printf(" 你的答案正确。 ");
+						else  printf("你的答案错误，请认真思考。\n");
+					}
+				}i = 5;
+				printf("请输入有效选择条件\n");
+				scanf_s("%d", &b); break;
+			default: printf("输入有效信息\n");break;
+			}
+		}
+		if (b >= 7) {
+			printf("请输入有效选择条件\n");
+			scanf_s("%d", &b);
+		}
+	} while (i<= 100);
+	printf("感谢您使用本程序，祝您生活愉快\n");
+	if (money > 10000) {
+		printf("我们诚邀您对我们的系统进行评分\n");
+		printf("请用1—10来描述您对这个系统的满意程度\n10代表十分满意，9代表很满意，8代表满意，7分及以下分数表示不满意\n");
+		printf("您对我们的评分表达了该制作人员工作的努力程度，请您慎重评分\n");
+		scanf_s("%d", &i);
+		printf("感谢您的配合，祝您生活愉快\n");
+	}
+	system("pause");
+	return 0;
+}
+int max(int x, int y)
+{
+	int z;
+	if (x > y ) z = x;
+	else z = y;
+	return z;
+}
